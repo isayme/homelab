@@ -13,8 +13,15 @@ function getResolvedTheme(theme: Theme): "light" | "dark" {
 }
 
 function applyTheme(theme: Theme) {
-  const resolved = getResolvedTheme(theme)
-  document.documentElement.classList.toggle("dark", resolved === "dark")
+  const needsDark = getResolvedTheme(theme) === "dark"
+  if (document.documentElement.classList.contains("dark") === needsDark) return
+  const toggle = () =>
+    document.documentElement.classList.toggle("dark", needsDark)
+  if ("startViewTransition" in document) {
+    document.startViewTransition(toggle)
+  } else {
+    toggle()
+  }
 }
 
 export function useTheme() {
@@ -36,7 +43,15 @@ export function useTheme() {
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)")
     const handler = () => {
-      if (theme === "system") applyTheme("system")
+      if (theme === "system") {
+        const toggle = () =>
+          document.documentElement.classList.toggle("dark", getSystemTheme() === "dark")
+        if ("startViewTransition" in document) {
+          document.startViewTransition(toggle)
+        } else {
+          toggle()
+        }
+      }
     }
     mq.addEventListener("change", handler)
     return () => mq.removeEventListener("change", handler)
