@@ -162,7 +162,15 @@ export default function App() {
       <footer className="border-t border-border/50 bg-card/30">
         <div className="mx-auto max-w-7xl px-4 py-5">
           <p className="text-center text-sm text-muted-foreground">
-            HomeLab 导航
+            © {new Date().getFullYear()}{" "}
+            <a
+              href="https://github.com/isayme/homelab"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              isayme
+            </a>
           </p>
         </div>
       </footer>
