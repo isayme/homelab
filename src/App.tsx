@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from "react"
-import { Routes, Route, useLocation, useNavigate, Link } from "react-router-dom"
-import { RefreshCw, Home, BookOpen, ArrowLeft } from "lucide-react"
 import yaml from "js-yaml"
+import { ArrowLeft, BookOpen, Home, RefreshCw } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
+import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import { CategorySection } from "./components/category-section"
 import { ConfigGuide } from "./components/config-guide"
 import { ThemeToggle } from "./components/theme-toggle"
@@ -169,7 +169,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-foreground transition-colors"
             >
-              isayme
+              homelab
             </a>
           </p>
         </div>
