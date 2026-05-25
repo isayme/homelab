@@ -29,6 +29,30 @@ categories:
 
 如需使用其他图标，在 `src/components/icons.tsx` 的 `iconMap` 中添加映射即可。
 
+## Docker 部署时挂载配置
+
+使用 Docker 或 Docker Compose 部署时，通过 volume 挂载覆盖容器内的默认配置文件：
+
+```bash
+docker run -d -p 80:80 \
+  -v /path/to/your/nav.yaml:/usr/share/nginx/html/data/nav.yaml \
+  isayme/homelab:latest
+```
+
+Docker Compose 示例：
+
+```yaml
+services:
+  homelab:
+    image: isayme/homelab:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./my-nav.yaml:/usr/share/nginx/html/data/nav.yaml
+```
+
+修改本地 `nav.yaml` 后刷新页面即可看到更新，无需重建镜像或重启容器。
+
 ## 示例
 
 ```yaml

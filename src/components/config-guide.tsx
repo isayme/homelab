@@ -64,6 +64,31 @@ categories:
       </section>
 
       <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-foreground">Docker 部署</h2>
+        <p className="text-sm text-muted-foreground">
+          使用 Docker 或 Docker Compose 部署时，通过 volume 挂载覆盖容器内的默认配置文件：
+        </p>
+        <pre className="overflow-x-auto rounded-lg border border-border/60 bg-secondary/50 p-4 text-sm leading-relaxed text-foreground">
+          <code>{`# Docker
+docker run -d -p 80:80 \\
+  -v /path/to/your/nav.yaml:/usr/share/nginx/html/data/nav.yaml \\
+  isayme/homelab:latest
+
+# Docker Compose
+services:
+  homelab:
+    image: isayme/homelab:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./my-nav.yaml:/usr/share/nginx/html/data/nav.yaml`}</code>
+        </pre>
+        <p className="text-sm text-muted-foreground">
+          挂载后修改本地文件，刷新页面即可看到更新，无需重建镜像或重启容器。
+        </p>
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-lg font-semibold text-foreground">完整示例</h2>
         <pre className="overflow-x-auto rounded-lg border border-border/60 bg-secondary/50 p-4 text-sm leading-relaxed text-foreground">
           <code>{`title: 我的服务器

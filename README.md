@@ -38,6 +38,26 @@ categories:
 docker run -d -p 80:80 isayme/homelab:latest
 ```
 
+挂载自定义 `nav.yaml`：
+
+```bash
+docker run -d -p 80:80 \
+  -v /path/to/your/nav.yaml:/usr/share/nginx/html/data/nav.yaml \
+  isayme/homelab:latest
+```
+
+### Docker Compose
+
+```yaml
+services:
+  homelab:
+    image: isayme/homelab:latest
+    ports:
+      - "80:80"
+    volumes:
+      - /path/to/your/nav.yaml:/usr/share/nginx/html/data/nav.yaml
+```
+
 Tag 推送后 GitHub Actions 自动构建多架构镜像（amd64/arm64）并推送至 Docker Hub。
 
 ### GitHub Pages
