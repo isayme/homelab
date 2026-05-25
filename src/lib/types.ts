@@ -1,6 +1,7 @@
 export interface NavItem {
   name: string
   url: string
+  urlExternal?: string
   icon: string
   description: string
 }

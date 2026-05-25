@@ -10,13 +10,14 @@ categories:
         description: 开源媒体服务器
       - name: Plex
         url: http://192.168.1.100:32400
+        urlExternal: http://192.168.1.100:32401
         icon: tv
         description: 流媒体播放器
   - name: 开发工具
     icon: code
     items:
       - name: Gitea
-        url: http://192.168.1.100:3000
+        urlExternal: http://192.168.1.100:3000
         icon: git-branch
         description: Git 代码托管
       - name: Portainer
