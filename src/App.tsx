@@ -32,14 +32,18 @@ function HomePage({ data }: { data: NavConfig | null }) {
 export default function App() {
   const [data, setData] = useState<NavConfig | null>(null)
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === "/"
 
   const fetchData = useCallback(async () => {
+    const minTime = 1000
+    const startedAt = Date.now()
     try {
       setError(null)
+      setRefreshing(true)
       const res = await fetch("/data/nav.yaml")
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const text = await res.text()
@@ -47,9 +51,13 @@ export default function App() {
       setData(config)
     } catch (e) {
       console.error("获取数据失败:", e)
-      setError("无法加载配置文件 data/nav.yaml")
+      if (!data) setError("无法加载配置文件 data/nav.yaml")
     } finally {
+      const elapsed = Date.now() - startedAt
+      const remaining = Math.ceil(elapsed / minTime) * minTime - elapsed
+      if (remaining > 0) await new Promise((r) => setTimeout(r, remaining))
       setLoading(false)
+      setRefreshing(false)
     }
   }, [])
 
@@ -130,10 +138,11 @@ export default function App() {
                 <>
                   <button
                     onClick={fetchData}
-                    className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+                    disabled={refreshing}
+                    className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors disabled:opacity-50"
                     title="刷新"
                   >
-                    <RefreshCw className="h-5 w-5" />
+                    <RefreshCw className={`h-5 w-5 ${refreshing ? "animate-spin" : ""}`} />
                     <span className="sr-only">刷新</span>
                   </button>
                   <Link
