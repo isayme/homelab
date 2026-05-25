@@ -27,10 +27,31 @@ categories:
     icon: icon-name         # 可选，分类图标，默认 link
     items:
       - name: 服务名称      # 必填，卡片标题
-        url: https://...    # 必填，点击跳转链接
+        url: https://...    # 可选，内网访问地址
+        urlExternal: https://...  # 可选，公网访问地址
         icon: icon-name     # 可选，服务图标，默认 link
         description: 描述   # 可选，卡片副标题，不填则显示 url`}</code>
         </pre>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-foreground">内网 / 公网双地址</h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">url</code> 和{" "}
+          <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">urlExternal</code>{" "}
+          均为可选，但至少需填写一个：
+        </p>
+        <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
+          <li>
+            <strong>仅 url：</strong>整张卡片为单个链接，点击跳转内网地址。
+          </li>
+          <li>
+            <strong>仅 urlExternal：</strong>整张卡片为单个链接，点击跳转公网地址。
+          </li>
+          <li>
+            <strong>同时填写：</strong>卡片左侧主体链接到内网地址，右侧拆分出「内网」「公网」两个独立按钮，方便家庭服务器场景下内外网切换。
+          </li>
+        </ul>
       </section>
 
       <section className="space-y-3">
@@ -99,6 +120,7 @@ categories:
     items:
       - name: Jellyfin
         url: http://192.168.1.100:8096
+        urlExternal: https://jellyfin.example.com
         icon: film
         description: 开源媒体服务器
       - name: Navidrome

@@ -16,12 +16,23 @@ categories:
     icon: icon-name         # 可选，分类图标，默认为 link
     items:
       - name: 服务名称      # 必填，卡片标题
-        url: https://...    # 必填，点击跳转链接
+        url: https://...    # 可选，内网访问地址
+        urlExternal: https://...  # 可选，公网访问地址
         icon: icon-name     # 可选，服务图标，默认为 link
         description: 描述   # 可选，卡片副标题，不填则显示 url
 ```
 
-## 可用图标
+## 内网 / 公网双地址
+
+`url` 和 `urlExternal` 均为可选，但至少需填写一个。两者的 UI 表现如下：
+
+| 配置方式 | UI 表现 |
+|---|---|
+| 仅 `url` | 整张卡片为单个链接，点击跳转内网地址 |
+| 仅 `urlExternal` | 整张卡片为单个链接，点击跳转公网地址 |
+| 同时填写 | 卡片左侧主体区域链接到 `url`，右侧拆分出「内网」「公网」两个独立按钮 |
+
+同时填写适用于家庭服务器场景——在家时点击卡片直达内网地址，在外时通过右侧「公网」按钮访问。
 
 图标名称对应 [Lucide](https://lucide.dev/icons/) 图标库的 kebab-case 名称。当前已注册的图标：
 
@@ -64,6 +75,7 @@ categories:
     items:
       - name: Jellyfin
         url: http://192.168.1.100:8096
+        urlExternal: https://jellyfin.example.com
         icon: film
         description: 开源媒体服务器
       - name: Navidrome
