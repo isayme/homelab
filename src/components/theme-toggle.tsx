@@ -2,16 +2,7 @@ import { Moon, Sun, Monitor } from "lucide-react"
 import { useTheme } from "../hooks/use-theme"
 
 export function ThemeToggle() {
-  const { theme, setTheme, mounted } = useTheme()
-
-  if (!mounted) {
-    return (
-      <button className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground">
-        <Sun className="h-5 w-5" />
-        <span className="sr-only">切换主题</span>
-      </button>
-    )
-  }
+  const { theme, setTheme } = useTheme()
 
   return (
     <div className="relative inline-block">
