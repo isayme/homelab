@@ -1,0 +1,48 @@
+title: HomeLab 导航
+subtitle: 家庭服务器控制中心
+categories:
+  - name: 媒体服务
+    icon: play
+    items:
+      - name: Jellyfin
+        url: http://192.168.1.100:8096
+        icon: film
+        description: 开源媒体服务器
+      - name: Plex
+        url: http://192.168.1.100:32400
+        urlExternal: http://192.168.1.100:32401
+        icon: tv
+        description: 流媒体播放器
+  - name: 开发工具
+    icon: code
+    items:
+      - name: Gitea
+        urlExternal: http://192.168.1.100:3000
+        icon: git-branch
+        description: Git 代码托管
+      - name: Portainer
+        url: http://192.168.1.100:9000
+        icon: box
+        description: Docker 管理
+  - name: 网络服务
+    icon: globe
+    items:
+      - name: Pi-hole
+        url: http://192.168.1.100:80/admin
+        icon: shield
+        description: DNS 广告过滤
+      - name: Nginx Proxy Manager
+        url: http://192.168.1.100:81
+        icon: server
+        description: 反向代理管理
+  - name: 系统监控
+    icon: activity
+    items:
+      - name: Grafana
+        url: http://192.168.1.100:3001
+        icon: bar-chart-2
+        description: 数据可视化
+      - name: Prometheus
+        url: http://192.168.1.100:9090
+        icon: database
+        description: 指标采集
