@@ -1,0 +1,19 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f6f9f6; }
+      .gs { stroke: #000000; }
+...
+      .gs { stroke: #ffffff; }
+      .ga { fill: #31AA40; stroke: #31AA40; }
+      .gp { stroke: #31AA40; }
+    }
+  </style>
+  <rect class="bg" width="180" height="180" rx="37" />
+  <rect x="28" y="28" width="55" height="55" rx="8" class="gs" stroke-width="6" fill="none" opacity="1" />
+  <rect x="97" y="28" width="55" height="55" rx="8" class="gs" stroke-width="6" fill="none" opacity="1" />
+  <rect x="28" y="97" width="55" height="55" rx="8" class="gs" stroke-width="6" fill="none" opacity="1" />
+  <rect x="97" y="97" width="55" height="55" rx="8" class="ga" fill-opacity="0.15" stroke-width="3" />
+  <path d="M125 97 A28 28 0 0 0 152 125" class="gp" stroke-width="3" stroke-linecap="round" opacity="0.5" fill="none" />
+  <path d="M140 97 A43 43 0 0 0 167 140" class="gp" stroke-width="2.5" stroke-linecap="round" opacity="0.3" fill="none" />
+</svg>
