@@ -6,6 +6,7 @@ import { CategorySection } from "./components/category-section"
 import { ConfigGuide } from "./components/config-guide"
 import { ThemeToggle } from "./components/theme-toggle"
 import type { NavConfig } from "./lib/types"
+import { version } from "../package.json"
 
 function HomePage({ data }: { data: NavConfig | null }) {
   if (data?.categories && data.categories.length > 0) {
@@ -180,6 +181,8 @@ export default function App() {
             >
               homelab
             </a>
+            <span className="mx-1.5">·</span>
+            <span>v{version}</span>
           </p>
         </div>
       </footer>
