@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 type Theme = "light" | "dark" | "system"
 
@@ -10,6 +10,26 @@ function getSystemTheme(): "light" | "dark" {
 function getResolvedTheme(theme: Theme): "light" | "dark" {
   if (theme === "system") return getSystemTheme()
   return theme
+}
+
+const THEME_COLORS = { light: "#f6f9f6", dark: "#050b05" } as const
+
+function setThemeColorMeta(theme: Theme) {
+  document.querySelectorAll('meta[name="theme-color"]').forEach(el => el.remove())
+  if (theme === "system") {
+    for (const mode of ["light", "dark"] as const) {
+      const meta = document.createElement("meta")
+      meta.name = "theme-color"
+      meta.content = THEME_COLORS[mode]
+      meta.setAttribute("media", `(prefers-color-scheme: ${mode})`)
+      document.head.appendChild(meta)
+    }
+  } else {
+    const meta = document.createElement("meta")
+    meta.name = "theme-color"
+    meta.content = THEME_COLORS[theme]
+    document.head.appendChild(meta)
+  }
 }
 
 function applyTheme(theme: Theme) {
@@ -38,6 +58,7 @@ export function useTheme() {
 
   useEffect(() => {
     applyTheme(theme)
+    setThemeColorMeta(theme)
   }, [theme])
 
   useEffect(() => {
