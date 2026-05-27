@@ -2,11 +2,11 @@ import yaml from "js-yaml"
 import { ArrowLeft, BookOpen, Home, RefreshCw } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom"
+import { version } from "../package.json"
 import { CategorySection } from "./components/category-section"
 import { ConfigGuide } from "./components/config-guide"
 import { ThemeToggle } from "./components/theme-toggle"
 import type { NavConfig } from "./lib/types"
-import { version } from "../package.json"
 
 function HomePage({ data }: { data: NavConfig | null }) {
   if (data?.categories && data.categories.length > 0) {
@@ -177,12 +177,10 @@ export default function App() {
               href="https://github.com/isayme/homelab"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-foreground transition-colors"
+              className="hover:text-foreground transition-colors"
             >
-              homelab
+              homelab v{version}
             </a>
-            <span className="mx-1.5">·</span>
-            <span>v{version}</span>
           </p>
         </div>
       </footer>
