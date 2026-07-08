@@ -1,4 +1,4 @@
-import yaml from "js-yaml"
+import { load } from "js-yaml"
 import { ArrowLeft, BookOpen, Home, RefreshCw } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom"
@@ -48,7 +48,7 @@ export default function App() {
       const res = await fetch("/data/nav.yaml")
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const text = await res.text()
-      const config = yaml.load(text) as NavConfig
+      const config = load(text) as NavConfig
       setData(config)
     } catch (e) {
       console.error("获取数据失败:", e)
