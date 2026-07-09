@@ -85,6 +85,43 @@ categories:
       </section>
 
       <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-foreground">远程配置合并（Remotes）</h2>
+        <p className="text-sm text-muted-foreground">
+          通过 <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">remotes</code> 字段从远程 URL 拉取配置片段进行合并，便于复用公共导航：
+        </p>
+        <pre className="overflow-x-auto rounded-lg border border-border/60 bg-secondary/50 p-4 text-sm leading-relaxed text-foreground">
+          <code>{`# 远程配置示例，可以放在任意 HTTP 服务器上
+# http://example.com/common-nav.yaml
+categories:
+  - name: 公共工具
+    icon: link
+    items:
+      - name: ChatGPT
+        url: https://chat.openai.com
+        icon: message-circle
+        description: AI 助手`}</code>
+        </pre>
+        <pre className="overflow-x-auto rounded-lg border border-border/60 bg-secondary/50 p-4 text-sm leading-relaxed text-foreground">
+          <code>{`# 主配置：引入远程配置
+title: HomeLab 导航
+subtitle: 家庭服务器控制中心
+categories:
+  - name: 媒体服务
+    icon: play
+    items:
+      - name: Jellyfin
+        url: http://192.168.1.100:8096
+        icon: film
+remotes:
+  - url: http://example.com/common-nav.yaml`}</code>
+        </pre>
+        <p className="text-sm text-muted-foreground">
+          合并规则：同名 <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">category</code> 会合并 items，不同名则追加到末尾。
+          多个 remote 按数组顺序依次合并。远程加载失败不会影响本地数据，仅记录警告日志。
+        </p>
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-lg font-semibold text-foreground">Docker 部署</h2>
         <p className="text-sm text-muted-foreground">
           使用 Docker 或 Docker Compose 部署时，通过 volume 挂载覆盖容器内的默认配置文件：

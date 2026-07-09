@@ -12,8 +12,15 @@ export interface Category {
   items: NavItem[]
 }
 
+export interface Remote {
+  url: string
+}
+
 export interface NavConfig {
   title: string
   subtitle: string
   categories: Category[]
+  remotes?: Remote[]
 }
+
+export type PartialNavConfig = Partial<NavConfig>

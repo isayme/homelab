@@ -1,12 +1,13 @@
 import { load } from "js-yaml"
 import { ArrowLeft, BookOpen, Home, RefreshCw } from "lucide-react"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import { version } from "../package.json"
 import { CategorySection } from "./components/category-section"
 import { ConfigGuide } from "./components/config-guide"
 import { ThemeToggle } from "./components/theme-toggle"
-import type { NavConfig } from "./lib/types"
+import { mergeNavConfig } from "./lib/merge"
+import type { NavConfig, PartialNavConfig } from "./lib/types"
 
 function HomePage({ data }: { data: NavConfig | null }) {
   if (data?.categories && data.categories.length > 0) {
@@ -35,6 +36,7 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const hasDataRef = useRef(false)
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === "/"
@@ -45,14 +47,36 @@ export default function App() {
     try {
       setError(null)
       setRefreshing(true)
+
       const res = await fetch("/data/nav.yaml")
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const text = await res.text()
       const config = load(text) as NavConfig
-      setData(config)
+
+      if (config.remotes && config.remotes.length > 0) {
+        const results = await Promise.allSettled(
+          config.remotes.map(async (remote) => {
+            const r = await fetch(remote.url)
+            if (!r.ok) throw new Error(`Remote HTTP ${r.status} from ${remote.url}`)
+            const t = await r.text()
+            return load(t) as PartialNavConfig
+          }),
+        )
+
+        for (const result of results) {
+          if (result.status === "fulfilled") {
+            Object.assign(config, mergeNavConfig(config, result.value))
+          } else {
+            console.warn("加载远程配置失败:", result.reason)
+          }
+        }
+      }
+
+      setData({ ...config })
+      hasDataRef.current = true
     } catch (e) {
       console.error("获取数据失败:", e)
-      if (!data) setError("无法加载配置文件 data/nav.yaml")
+      if (!hasDataRef.current) setError("无法加载配置文件 data/nav.yaml")
     } finally {
       const elapsed = Date.now() - startedAt
       const remaining = Math.ceil(elapsed / minTime) * minTime - elapsed
