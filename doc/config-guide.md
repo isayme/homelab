@@ -40,6 +40,55 @@ categories:
 
 如需使用其他图标，在 `src/components/icons.tsx` 的 `iconMap` 中添加映射即可。
 
+## 远程配置合并（Remotes）
+
+通过 `remotes` 字段可以从远程 URL 拉取配置片段进行合并，便于复用公共导航配置。
+
+### 远程配置格式
+
+远程配置是一个 YAML 文件，结构与主配置的 `categories` 一致，可以只包含需要合并的部分：
+
+```yaml
+# 例：http://example.com/common-nav.yaml
+categories:
+  - name: 公共工具
+    icon: link
+    items:
+      - name: ChatGPT
+        url: https://chat.openai.com
+        icon: message-circle
+        description: AI 助手
+```
+
+### 主配置引入远程
+
+```yaml
+title: HomeLab 导航
+subtitle: 家庭服务器控制中心
+categories:
+  - name: 媒体服务
+    icon: play
+    items:
+      - name: Jellyfin
+        url: http://192.168.1.100:8096
+        icon: film
+remotes:
+  - url: http://example.com/common-nav.yaml
+  - url: http://another-server/shared-nav.yaml
+```
+
+### 合并规则
+
+| 规则 | 说明 |
+|---|---|
+| 同名 `name` 的 category | 合并 items，远程 items 追加到本地 items 末尾 |
+| 不同名的 category | 直接追加到 categories 列表末尾 |
+| 远程加载失败 | 静默跳过，仅记录 `console.warn`，不影响本地数据 |
+| 多个远程 | 按 `remotes` 数组顺序依次合并 |
+| `title`/`subtitle` | 本地值优先，仅当本地未设置时采用远程值 |
+
+远程配置的应用场景包括：团队共享公共工具分类、不同环境复用基础设施入口、通过脚本动态生成部分导航。
+
 ## Docker 部署时挂载配置
 
 使用 Docker 或 Docker Compose 部署时，通过 volume 挂载覆盖容器内的默认配置文件：

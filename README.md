@@ -31,6 +31,8 @@ categories:
 
 页面内置 `/guide` 路由可查看完整配置说明，详见 [doc/config-guide.md](doc/config-guide.md)。
 
+支持通过 `remotes` 字段从远程 URL 拉取配置片段并自动合并（同名 category 合并 items），详见 [doc/config-guide.md#远程配置合并remotes](doc/config-guide.md#远程配置合并remotes)。
+
 ## 部署
 
 ### Docker
