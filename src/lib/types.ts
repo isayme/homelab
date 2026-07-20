@@ -1,14 +1,14 @@
 export interface NavItem {
-  name: string
-  url: string
+  name?: string
+  url?: string
   urlExternal?: string
-  icon: string
+  icon?: string
   description: string
 }
 
 export interface Category {
-  name: string
-  icon: string
+  name?: string
+  icon?: string
   items: NavItem[]
 }
 

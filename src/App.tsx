@@ -13,8 +13,8 @@ function HomePage({ data }: { data: NavConfig | null }) {
   if (data?.categories && data.categories.length > 0) {
     return (
       <div className="space-y-10">
-        {data.categories.map((category) => (
-          <CategorySection key={category.name} category={category} />
+        {data.categories.map((category, idx) => (
+          <CategorySection key={category.name ?? idx} category={category} />
         ))}
       </div>
     )

@@ -73,7 +73,8 @@ const iconMap: Record<string, LucideIcon> = {
   terminal: Terminal,
 }
 
-export function getIcon(name: string): LucideIcon {
+export function getIcon(name?: string): LucideIcon {
+  if (!name) return Link
   return iconMap[name.toLowerCase()] || Link
 }
 
@@ -81,7 +82,7 @@ export function DynamicIcon({
   name,
   className,
 }: {
-  name: string
+  name?: string
   className?: string
 }) {
   const Icon = getIcon(name)
