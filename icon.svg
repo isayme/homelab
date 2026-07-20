@@ -1,0 +1,19 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f6f9f6; }
+      .grid-stroke { stroke: #000000; }
+      .grid-fill { fill: #51C148; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #050b05; }
+      .grid-stroke { stroke: #ffffff; }
+      .grid-fill { fill: #31AA40; }
+    }
+  </style>
+  <rect class="bg" width="180" height="180" rx="8" />
+  <rect x="13" y="13" width="70" height="70" rx="8" class="grid-stroke" stroke-width="6" fill="none" opacity="1" />
+  <rect x="97" y="13" width="70" height="70" rx="8" class="grid-stroke" stroke-width="6" fill="none" opacity="1" />
+  <rect x="13" y="97" width="70" height="70" rx="8" class="grid-stroke" stroke-width="6" fill="none" opacity="1" />
+  <rect x="94" y="94" width="76" height="76" rx="8" class="grid-fill" />
+</svg>
