@@ -17,7 +17,7 @@ export function CategorySection({ category }: { category: Category }) {
       </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {category.items.map((item, idx) => (
-          <NavCard key={`${item.name}-${idx}`} item={item} />
+          <NavCard key={`${item.name ?? ""}-${idx}`} item={item} />
         ))}
       </div>
     </section>
